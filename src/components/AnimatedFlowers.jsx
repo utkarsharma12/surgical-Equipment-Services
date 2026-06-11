@@ -51,7 +51,7 @@ const AnimatedFlowers = () => {
   ];
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
+    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
       {flowers.map((f) => (
         <motion.div
           key={f.id}

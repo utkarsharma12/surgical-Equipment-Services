@@ -1,9 +1,11 @@
 import heroImage from "../assets/hero.png";
 import { motion } from "framer-motion";
+import AnimatedFlowers from "./AnimatedFlowers";
 
 function Hero() {
   return (
     <section className="bg-gradient-to-br from-indigo-50 via-[#f8fafc] to-indigo-100/50 min-h-screen flex items-center pt-32 pb-16 relative overflow-hidden">
+      <AnimatedFlowers />
       {/* Background Decor */}
       <div className="absolute top-0 right-0 -mr-32 -mt-32 w-96 h-96 rounded-full bg-indigo-300/20 blur-3xl"></div>
       <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-96 h-96 rounded-full bg-cyan-300/20 blur-3xl"></div>

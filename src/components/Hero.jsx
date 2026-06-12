@@ -1,4 +1,3 @@
-import heroImage from "../assets/hero.png";
 import { motion } from "framer-motion";
 import AnimatedFlowers from "./AnimatedFlowers";
 
@@ -73,7 +72,7 @@ function Hero() {
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600/20 to-transparent rounded-[3rem] transform rotate-3 scale-105 -z-10"></div>
             <img
-              src={heroImage}
+              src="https://www.mpmmedicalsupply.com/cdn/shop/products/foerster-sponge-forceps_512x512.jpg?v=1541368866"
               alt="Surgical Equipment"
               className="w-full max-w-lg rounded-[2.5rem] shadow-2xl border-4 border-white/50 backdrop-blur-sm"
             />

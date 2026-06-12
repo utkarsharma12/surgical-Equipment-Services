@@ -1,66 +1,44 @@
 import { motion } from "framer-motion";
 
-const FlowerSVG = ({ color, petals = 5, className = "" }) => {
-  const petalElements = [];
-  const radius = 22; // Distance from center to petal center
-  const petalR = 22; // Radius of each petal
-  const holeR = 12; // Radius of the center hole
-
-  // Generate petal positions
-  for (let i = 0; i < petals; i++) {
-    // Offset by -90 degrees so the first petal is at the top
-    const angle = (i * 360) / petals - 90;
-    const rad = (angle * Math.PI) / 180;
-    const px = 50 + Math.cos(rad) * radius;
-    const py = 50 + Math.sin(rad) * radius;
-    petalElements.push(<circle key={i} cx={px} cy={py} r={petalR} fill={color} />);
-  }
-
-  // Unique ID for the mask to prevent conflicts
-  const maskId = `holeMask-${color.replace("#", "")}-${petals}`;
+const CrossSVG = ({ color, outlined, className = "" }) => {
+  // A continuous path for a rounded medical cross
+  const pathData =
+    "M 40 40 L 40 20 A 10 10 0 0 1 60 20 L 60 40 L 80 40 A 10 10 0 0 1 80 60 L 60 60 L 60 80 A 10 10 0 0 1 40 80 L 40 60 L 20 60 A 10 10 0 0 1 20 40 Z";
 
   return (
     <svg viewBox="0 0 100 100" className={`w-full h-full ${className}`}>
-      <defs>
-        <mask id={maskId}>
-          <rect width="100" height="100" fill="white" />
-          <circle cx="50" cy="50" r={holeR} fill="black" />
-        </mask>
-      </defs>
-      <g mask={`url(#${maskId})`}>
-        {/* Central base to connect petals solidly */}
-        <circle cx="50" cy="50" r="20" fill={color} />
-        {/* The petals */}
-        {petalElements}
-      </g>
+      <path
+        d={pathData}
+        fill={outlined ? "transparent" : color}
+        stroke={outlined ? color : "transparent"}
+        strokeWidth={outlined ? "8" : "0"}
+        strokeLinejoin="round"
+      />
     </svg>
   );
 };
 
 const AnimatedFlowers = () => {
-  // Define flowers based on the user's provided images
-  const flowers = [
-    { id: 1, color: "#043254", petals: 5, size: "w-28 h-28", top: "12%", left: "6%", duration: 25 },
-    { id: 2, color: "#1f3eb1", petals: 5, size: "w-40 h-40", top: "30%", right: "8%", duration: 35, reverse: true },
-    { id: 3, color: "#be117c", petals: 5, size: "w-24 h-24", top: "55%", left: "10%", duration: 20 },
-    { id: 4, color: "#2877c4", petals: 6, size: "w-32 h-32", top: "75%", right: "12%", duration: 30, reverse: true },
-    { id: 5, color: "#043254", petals: 5, size: "w-20 h-20", top: "85%", left: "15%", duration: 18 },
-    { id: 6, color: "#be117c", petals: 5, size: "w-28 h-28", top: "45%", right: "6%", duration: 28 },
-    { id: 7, color: "#2877c4", petals: 6, size: "w-16 h-16", top: "18%", right: "20%", duration: 15 },
-    { id: 8, color: "#1f3eb1", petals: 5, size: "w-24 h-24", top: "65%", left: "25%", duration: 22, reverse: true },
+  // Define crosses based on the user's reference image
+  const crosses = [
+    { id: 1, color: "#10b981", outlined: true, size: "w-24 h-24", top: "15%", left: "60%", duration: 30 }, // green outline top-ish
+    { id: 2, color: "#2563eb", outlined: false, size: "w-14 h-14", top: "70%", left: "45%", duration: 20, reverse: true }, // blue solid bottom
+    { id: 3, color: "#2563eb", outlined: true, size: "w-40 h-40", top: "45%", right: "5%", duration: 45 }, // large blue outline right
+    { id: 4, color: "#10b981", outlined: false, size: "w-12 h-12", top: "35%", left: "15%", duration: 25, reverse: true }, // extra small green
+    { id: 5, color: "#3b82f6", outlined: true, size: "w-20 h-20", top: "80%", left: "10%", duration: 35 }, // extra light blue
   ];
 
   return (
     <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-      {flowers.map((f) => (
+      {crosses.map((f) => (
         <motion.div
           key={f.id}
-          className={`absolute ${f.size} opacity-25`}
+          className={`absolute ${f.size} opacity-90`}
           style={{ top: f.top, left: f.left, right: f.right }}
           animate={{ rotate: f.reverse ? -360 : 360 }}
           transition={{ repeat: Infinity, duration: f.duration, ease: "linear" }}
         >
-          <FlowerSVG color={f.color} petals={f.petals} />
+          <CrossSVG color={f.color} outlined={f.outlined} />
         </motion.div>
       ))}
     </div>
